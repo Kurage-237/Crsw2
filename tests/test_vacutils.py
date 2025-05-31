@@ -106,3 +106,14 @@ def test_vacancy_snippet_fields_preserved() -> None:
     snippet = {"requirement": "req", "responsibility": "resp"}
     vac = Vacancy("SnipTest", "urlSnip", {"currency": "RUR", "from": 0, "to": 0}, snippet)
     assert vac.snippet == snippet
+
+def validation_errors() -> None:
+    snippet = {"requirement": "req", "responsibility": "resp"}
+    with pytest.raises(ValueError, match="Значение должно быть непустой строкой."):
+        Vacancy(1, "urlSnip", {"currency": "RUR", "from": 0, "to": 0}, snippet)
+    with pytest.raises(ValueError, match="Значение должно быть непустой строкой."):
+        Vacancy("dsadsa", 2, {"currency": "RUR", "from": 0, "to": 0}, snippet)
+    with pytest.raises(ValueError, match="snippet должен быть словарём."):
+        Vacancy("fdsdsad", "urlSnip", {"currency": "RUR", "from": 0, "to": 0}, 3)
+    with pytest.raises(ValueError, match="snippet должен быть словарём."):
+        Vacancy("fdsdsad", "urlSnip", 2, snippet)

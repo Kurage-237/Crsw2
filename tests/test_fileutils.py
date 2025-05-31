@@ -13,6 +13,9 @@ def temp_json_file(tmp_path: Path) -> Path:
     """
     return tmp_path / "vacancies_test.json"
 
+def test_init(temp_json_file: Path) -> None:
+    assert JSONVacancyFileHandler(str(temp_json_file)).filepath == str(temp_json_file)
+    assert JSONVacancyFileHandler().filepath == "data/vacancies.json"
 
 def test_write_and_load_vacs(temp_json_file: Path) -> None:
     """

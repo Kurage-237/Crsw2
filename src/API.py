@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 
 import requests
 
-from src.vacutils import Vacancy
 
 
 class ServiceAPI(ABC):
