@@ -29,7 +29,7 @@ def user_interaction() -> None:
             vacancies = []
             for raw in api.vacancies:
                 name = raw["name"]
-                url = raw.get("alternate_url") or raw.get("url")
+                url = raw.get("alternate_url", "") or raw.get("url", "")
                 # формат salary может быть в raw["salary"] или raw["salary_range"]
                 salary_dict = raw.get("salary_range") or raw.get("salary")
                 snippet = raw.get("snippet", {})

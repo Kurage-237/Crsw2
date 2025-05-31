@@ -1,7 +1,8 @@
+from typing import Optional, Union
+
 import pytest
 
 from src.vacutils import Vacancy
-from typing import Optional, Union
 
 
 def test_vacancy_salary_none_becomes_zero() -> None:
@@ -79,7 +80,7 @@ def test_vacancy_comparison_type_error(other_obj: Optional[Union[int, str, float
     """
     При сравнении Vacancy с не-Vacancy должно возвращаться NotImplemented.
     """
-    vac = Vacancy("Name", "url", {"currency": "RUR", "from": 0, "to": 100}, {})    # Проверяем __eq__
+    vac = Vacancy("Name", "url", {"currency": "RUR", "from": 0, "to": 100}, {})  # Проверяем __eq__
     result_eq = vac.__eq__(other_obj)
     assert result_eq is NotImplemented
 
@@ -107,13 +108,14 @@ def test_vacancy_snippet_fields_preserved() -> None:
     vac = Vacancy("SnipTest", "urlSnip", {"currency": "RUR", "from": 0, "to": 0}, snippet)
     assert vac.snippet == snippet
 
+
 def validation_errors() -> None:
     snippet = {"requirement": "req", "responsibility": "resp"}
     with pytest.raises(ValueError, match="Значение должно быть непустой строкой."):
-        Vacancy(1, "urlSnip", {"currency": "RUR", "from": 0, "to": 0}, snippet)
+        Vacancy(1, "urlSnip", {"currency": "RUR", "from": 0, "to": 0}, snippet)  # type: ignore[arg-type]
     with pytest.raises(ValueError, match="Значение должно быть непустой строкой."):
-        Vacancy("dsadsa", 2, {"currency": "RUR", "from": 0, "to": 0}, snippet)
+        Vacancy("dsadsa", 2, {"currency": "RUR", "from": 0, "to": 0}, snippet)  # type: ignore[arg-type]
     with pytest.raises(ValueError, match="snippet должен быть словарём."):
-        Vacancy("fdsdsad", "urlSnip", {"currency": "RUR", "from": 0, "to": 0}, 3)
+        Vacancy("fdsdsad", "urlSnip", {"currency": "RUR", "from": 0, "to": 0}, 3)  # type: ignore[arg-type]
     with pytest.raises(ValueError, match="snippet должен быть словарём."):
-        Vacancy("fdsdsad", "urlSnip", 2, snippet)
+        Vacancy("fdsdsad", "urlSnip", 2, snippet)  # type: ignore[arg-type]

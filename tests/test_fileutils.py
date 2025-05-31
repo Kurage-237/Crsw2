@@ -13,9 +13,11 @@ def temp_json_file(tmp_path: Path) -> Path:
     """
     return tmp_path / "vacancies_test.json"
 
+
 def test_init(temp_json_file: Path) -> None:
     assert JSONVacancyFileHandler(str(temp_json_file)).filepath == str(temp_json_file)
     assert JSONVacancyFileHandler().filepath == "data/vacancies.json"
+
 
 def test_write_and_load_vacs(temp_json_file: Path) -> None:
     """
@@ -58,9 +60,9 @@ def test_clear_overwrites_with_empty_array(temp_json_file: Path) -> None:
     """
     handler = JSONVacancyFileHandler(str(temp_json_file))
     # Запишем первоначальные данные
-    handler.write_vacs([{"foo": "bar"}], indent=0)
+    handler.write_vacs([{"foo": "bar", "url": "http://dummy"}], indent=0)
     assert temp_json_file.exists()
-    assert json.loads(temp_json_file.read_text(encoding="utf-8")) == [{"foo": "bar"}]
+    assert json.loads(temp_json_file.read_text(encoding="utf-8")) == [{"foo": "bar", "url": "http://dummy"}]
 
     # Очистим
     handler.clear()

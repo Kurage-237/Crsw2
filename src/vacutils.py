@@ -1,9 +1,11 @@
 from typing import Any
 
+
 class Vacancy:
     """
     Класс для работы с вакансиями.
     """
+
     __slots__ = ("name", "url", "salary_range", "snippet")
 
     def __init__(self, name: str, url: str, salary_range: dict | None, snippet: dict):
@@ -19,7 +21,7 @@ class Vacancy:
             return {"currency": None, "from": 0, "to": 0}
 
         if not isinstance(salary_range, dict):
-            raise ValueError("salary_range должен быть словарём или None") # pragma: no cover
+            raise ValueError("salary_range должен быть словарём или None")  # pragma: no cover
 
         frm = salary_range.get("from") or 0
         to = salary_range.get("to") or 0
@@ -35,14 +37,14 @@ class Vacancy:
     def __validate_string(value: Any) -> str:
         """Валидация строковых значений (не пустая строка)."""
         if not isinstance(value, str) or not value.strip():
-            raise ValueError("Значение должно быть непустой строкой.") # pragma: no cover
+            raise ValueError("Значение должно быть непустой строкой.")  # pragma: no cover
         return value.strip()
 
     @staticmethod
     def __validate_snippet(snippet: Any) -> dict:
         """Валидация snippet (должен быть словарём)."""
         if not isinstance(snippet, dict):
-            raise ValueError("snippet должен быть словарём.") # pragma: no cover
+            raise ValueError("snippet должен быть словарём.")  # pragma: no cover
         return snippet
 
     def __eq__(self, other: object) -> bool | Any:
